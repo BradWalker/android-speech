@@ -41,22 +41,19 @@ public class MainActivity extends AppCompatActivity implements SpeechDelegate {
     private SpeechProgressView progress;
     private LinearLayout linearLayout;
 
-    private TextToSpeech.OnInitListener mTttsInitListener = new TextToSpeech.OnInitListener() {
-        @Override
-        public void onInit(final int status) {
-            switch (status) {
-                case TextToSpeech.SUCCESS:
-                    Logger.info(LOG_TAG, "TextToSpeech engine successfully started");
-                    break;
+    private TextToSpeech.OnInitListener mTttsInitListener = status -> {
+        switch (status) {
+            case TextToSpeech.SUCCESS:
+                Logger.info(LOG_TAG, "TextToSpeech engine successfully started");
+                break;
 
-                case TextToSpeech.ERROR:
-                    Logger.error(LOG_TAG, "Error while initializing TextToSpeech engine!");
-                    break;
+            case TextToSpeech.ERROR:
+                Logger.error(LOG_TAG, "Error while initializing TextToSpeech engine!");
+                break;
 
-                default:
-                    Logger.error(LOG_TAG, "Unknown TextToSpeech status: " + status);
-                    break;
-            }
+            default:
+                Logger.error(LOG_TAG, "Unknown TextToSpeech status: " + status);
+                break;
         }
     };
 
@@ -97,18 +94,15 @@ public class MainActivity extends AppCompatActivity implements SpeechDelegate {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.supportedSTTLanguages:
-                onSetSpeechToTextLanguage();
-                return true;
-
-            case R.id.supportedTTSLanguages:
-                onSetTextToSpeechVoice();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
+        int itemId = item.getItemId();
+        if (itemId == R.id.supportedSTTLanguages) {
+            onSetSpeechToTextLanguage();
+            return true;
+        } else if (itemId == R.id.supportedTTSLanguages) {
+            onSetTextToSpeechVoice();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     private void onSetSpeechToTextLanguage() {

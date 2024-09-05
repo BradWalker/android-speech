@@ -23,7 +23,9 @@ public class Logger {
         void info(String tag, String message);
     }
 
-    private LogLevel mLogLevel = BuildConfig.DEBUG ? LogLevel.DEBUG : LogLevel.OFF;
+    // FIXME
+    // private LogLevel mLogLevel = BuildConfig.DEBUG ? LogLevel.DEBUG : LogLevel.OFF;
+    private LogLevel mLogLevel = LogLevel.DEBUG;
 
     private LoggerDelegate mDelegate = new DefaultLoggerDelegate();
 

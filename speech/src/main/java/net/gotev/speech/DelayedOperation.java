@@ -64,12 +64,7 @@ public class DelayedOperation {
             public void run() {
                 if (mOperation.shouldExecuteDelayedOperation()) {
                     Logger.debug(LOG_TAG, "executing delayed operation with tag: " + mTag);
-                    new Handler(mContext.getMainLooper()).post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mOperation.onDelayedOperation();
-                        }
-                    });
+                    new Handler(mContext.getMainLooper()).post(() -> mOperation.onDelayedOperation());
                 }
                 cancel();
             }

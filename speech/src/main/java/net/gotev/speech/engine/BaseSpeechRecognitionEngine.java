@@ -175,7 +175,7 @@ public class BaseSpeechRecognitionEngine implements SpeechRecognitionEngine {
 
     @Override
     public String getPartialResultsAsString() {
-        final StringBuilder out = new StringBuilder("");
+        final StringBuilder out = new StringBuilder();
 
         for (final String partial : mPartialData) {
             out.append(partial).append(" ");

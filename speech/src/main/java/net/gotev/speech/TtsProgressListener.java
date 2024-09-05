@@ -27,12 +27,7 @@ public class TtsProgressListener extends UtteranceProgressListener {
         final Context context = contextWeakReference.get();
 
         if (callback != null && context != null) {
-            new Handler(context.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onStart();
-                }
-            });
+            new Handler(context.getMainLooper()).post(() -> callback.onStart());
         }
     }
 
@@ -41,12 +36,9 @@ public class TtsProgressListener extends UtteranceProgressListener {
         final TextToSpeechCallback callback = mTtsCallbacks.get(utteranceId);
         final Context context = contextWeakReference.get();
         if (callback != null && context != null) {
-            new Handler(context.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onCompleted();
-                    mTtsCallbacks.remove(utteranceId);
-                }
+            new Handler(context.getMainLooper()).post(() -> {
+                callback.onCompleted();
+                mTtsCallbacks.remove(utteranceId);
             });
         }
     }
@@ -57,12 +49,9 @@ public class TtsProgressListener extends UtteranceProgressListener {
         final Context context = contextWeakReference.get();
 
         if (callback != null && context != null) {
-            new Handler(context.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onError();
-                    mTtsCallbacks.remove(utteranceId);
-                }
+            new Handler(context.getMainLooper()).post(() -> {
+                callback.onError();
+                mTtsCallbacks.remove(utteranceId);
             });
         }
     }
